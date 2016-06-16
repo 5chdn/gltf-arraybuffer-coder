@@ -4,20 +4,23 @@
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define([], factory);
+    } else if (typeof exports === 'object') {
+        // Node, CommonJS-like
+        module.exports = factory();
     } else {
         // Browser globals
-        root.gltfArrabufferCoder.js = factory();
+        root.gltfArrabufferCoder = factory();
     }
 }(this, function() {
     "use strict";
 
-    let dontDoStuff = function(url, success, error) {
-        window.console.log("dontDoStuff");
+    let dontDoStuff = function() {
+        window.console.log("dontDoStuff()");
     };
 
-    let doStuff = function(url, success, error) {
+    let doStuff = function() {
         dontDoStuff();
-        window.console.log("doStuff");
+        window.console.log("doStuff()");
     };
 
     return {
