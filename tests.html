@@ -5,22 +5,50 @@
   <title>Tests for glTF ArrayBuffer En-/Decoder</title>
   <script src="./gltfArraybufferCoder.js"></script>
   <script type="text/javascript">
+
+  /* @TODO https://jsfiddle.net/s1bzc0zc/6/ */
+  /* @TODO https://jsfiddle.net/6cevt681/1/ */
+
+    let vtx = [
+      0.0857, 0.0759,
+      0.0367, 0.9726,
+      0.9678, 0.0318,
+      0.9754, 0.9327
+    ];
+
+    let idx = [
+      0, 2,
+      2, 4,
+      4, 0,
+      0, 1,
+      1, 4
+    ];
+
     function test() {
-      window.console.log("test()");
       encodeIndicesTest();
+      encodeVerticesTest();
+      encodeEverythingTest();
     }
 
     function encodeIndicesTest() {
-      window.console.log("encodeIndicesTest()");
-      gltfArrabufferCoder.doStuff();
+      let buf = gltfArraybufferCoder.encodeIndices(idx);
+      window.console.log(gltfArraybufferCoder.encodeBase64DataUri(buf));
     }
 
     function encodeVerticesTest() {
-      window.console.log("encodeVerticesTest()");
+      let buf = gltfArraybufferCoder.encodeVertices(vtx);
+      window.console.log(gltfArraybufferCoder.encodeBase64DataUri(buf));
     }
 
-    function encodeSomethingComplexTest() {
-      window.console.log("encodeSomethingComplexTest()");
+    function encodeEverythingTest() {
+      let i_buf = gltfArraybufferCoder.encodeIndices(idx);
+      let v_buf = gltfArraybufferCoder.encodeVertices(vtx);
+
+      let buf = gltfArraybufferCoder.encodeIndicesAndVertices(idx, vtx);
+      window.console.log(gltfArraybufferCoder.encodeBase64DataUri(buf));
+
+      let con = gltfArraybufferCoder.concatenateBuffers(i_buf, v_buf);
+      window.console.log(gltfArraybufferCoder.encodeBase64DataUri(con));
     }
   </script>
 </head>
